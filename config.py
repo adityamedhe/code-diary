@@ -1,0 +1,1 @@
+DATABASE='code_diary.db'

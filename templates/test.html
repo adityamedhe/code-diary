@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<script src="../static/js/jquery.js"></script>
+
+	</head>
+
+	<body>
+	
+		<div id="test">
+			
+		</div>
+	</body>
+	
+		<script>
+		 
+		
+
+			$.post("http://127.0.0.1:5000/api/get_posts_by_title", JSON.stringify({"key" : "new"}), function(data){
+				$("#test").html(dump(data))
+			}, "json")
+							
+
+
+
+			function dump(arr,level) {var dumped_text = "<pre>";if(!level) level = 0;var level_padding = "";for(var j=0;j<level+1;j++) level_padding += "    ";	if(typeof(arr) == 'object') { for(var item in arr) {var value = arr[item];if(typeof(value) == 'object') {dumped_text += level_padding + "<b>'" + item + "'</b> ...";dumped_text += dump(value,level+1);	} else {dumped_text += level_padding + "<b>'" + item + "'</b> => \"" + value + "\"<br>";}}} else { dumped_text = "===>"+arr+"<===("+typeof(arr)+")";}return dumped_text;}
+		</script>
+</html>

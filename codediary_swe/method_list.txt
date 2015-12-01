@@ -1,0 +1,38 @@
+CodeDiary Class and Method List
+
+===
+
+Class : Database
+Methods :
+
+Common operations:
+	insert_post(self, title, text, tags)
+	returns: status
+
+	delete_	post(self, post_id)
+	returns: status
+
+ 	edit_post(self, post_id, new_title, new_text, new_tags)
+	returns: status
+
+
+Posts retrieval:
+   	get_post_by_id(self, post_id)
+   	returns a single post as JSON object along with a status field
+
+ 	get_posts(self, timestamp=0, n=5)
+ 	returns all matching posts as an array of JSON objects
+
+	get_posts_by_tags(self, taglist)
+ 	returns all matching posts as an array of JSON objects
+
+Tag operations:
+	get_tag_suggs(self, key)
+	returns all matching tags as array of JSON objects
+
+Maintenance:
+	destroy(self)
+	returns: none
+
+==============================================================================================
+Class : WebAPIHandler
