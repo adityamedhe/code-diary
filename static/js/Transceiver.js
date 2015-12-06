@@ -19,7 +19,7 @@ function Transceiver(set_URL){
 }
 
 //function definitions
-Transceiver.prototype.insertPost = function(post_title, post_text, post_tags) {
+Transceiver.prototype.insertPost = function(post_title, post_text, post_tags, callback) {
 	payload = {
 		"post_title" : post_title,
 		"post_text" : post_text,
@@ -27,7 +27,7 @@ Transceiver.prototype.insertPost = function(post_title, post_text, post_tags) {
 	}		
 
 	$.post(this.endpoints['insert_post'], JSON.stringify(payload), function(response) {
-		console.log (response);
+		callback (response);
 	})
 }
 
