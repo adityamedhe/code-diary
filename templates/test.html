@@ -1,24 +1,50 @@
 <html>
 	<head>
 		<script src="../static/js/jquery.js"></script>
-
+		<script src="../static/js/Transceiver.js"></script>
+		<script src="../static/js/materialize.min.js"></script>
+		<link rel="stylesheet" href="../static/css/materialize.min.css">
+		<link href='https://fonts.googleapis.com/css?family=Fira+Sans' rel='stylesheet' type='text/css'>
 	</head>
 
-	<body>
-	
-		<div id="test">
-			
+	<body style = "font-family: 'Fira Sans';">
+		<div class="row">
+			<div class="col l4">			
+				<div class="card blue-grey darken-2 white-text">
+					<div class="card-content">
+						<div id="title" class="card-title">
+						</div>
+						
+						<div id="text">
+							
+						</div>
+
+						<div id="tags">
+							
+						</div>
+					</div>
+
+					<div class="card-action">
+						<button class="btn waves-effect waves-light red white-text lighten-1">
+							OK
+						</button>
+					</div>				
+				</div>				
+			</div>
 		</div>
 	</body>
 	
 		<script>
-		 
-		
+					
+			pt = new Transceiver('127.0.0.1:5000')
+			r = pt.getPostsByTags(["memories"], 0, 2 , function(data) {
+				$("#title").html(data.posts[0].post_title)
+				$("#text").html(data.posts[0].post_text)
 
-			$.post("http://127.0.0.1:5000/api/get_posts_by_title", JSON.stringify({"key" : "new"}), function(data){
-				$("#test").html(dump(data))
-			}, "json")
-							
+				for(t of data.posts[0].tags){
+					$("#tags").append("<span class=chip>"+t.tag_name+"</span>")
+				}
+			})
 
 
 

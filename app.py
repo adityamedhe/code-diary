@@ -63,10 +63,15 @@ def api_edit_post():
 def api_delete_post():
 	recd_data = request.args.get('post_id', None)
 	return pretty_json(g.dbo.delete_post(recd_data))
-	
+
+@app.route('/api/get_tag_suggs', methods=['POST'])
+def api_get_tag_suggs():
+	recd_data = request.get_json(force=True)
+	return pretty_json(g.dbo.get_tag_suggs(recd_data.get('key', None)))
+
 # util functions
 def pretty_json(jstr):
-	return json.dumps(jstr, indent=4)
+	return json.dumps(jstr)
 # run the app
 if __name__ == '__main__':
 	app.run(debug=True)

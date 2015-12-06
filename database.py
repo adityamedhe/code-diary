@@ -254,7 +254,7 @@ class Database(object):
 	def get_tag_suggs(self, key):
 		"""Returns a list of all tags which match with key"""
 
-		if(key.strip() == ""):
+		if(key == None or key.strip() == ""):
 			return {"status" : "EMPTY_KEY"}
 
 		try:
