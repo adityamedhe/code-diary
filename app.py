@@ -5,7 +5,6 @@
 from flask import Flask, g, request, render_template
 import json
 import calendar
-
 from database import Database
 
 # init the app
@@ -22,11 +21,22 @@ def before_request():
 def teardown_request(e):
 	g.dbo.destroy()
 
+# static routes
 @app.route('/')
 def root():
-	# return pretty_json(g.dbo.get_posts_by_title('NEW', 0, 1))
-	return render_template("test.html")
-
+	return render_template("index.html")
+@app.route('/view/<int:id>')
+def view(id):
+	return render_template("view.html",post=g.dbo.get_post_by_id(id)['post'])
+@app.route('/create')
+def create():
+	return render_template("create.html")
+@app.route('/edit/<int:id>')
+def edit(id):
+	return render_template('edit.html', post=g.dbo.get_post_by_id(id)['post'])
+@app.route('/about')
+def about():
+	return render_template('about.html')
 # API routes
 @app.route('/api/get_post_by_id', methods=['GET', 'POST'])
 def api_get_post_by_id():
@@ -52,7 +62,7 @@ def api_get_posts_by_title():
 @app.route('/api/insert_post', methods=['POST'])
 def api_insert_post():
 	recd_data = request.get_json(force=True)
-	return pretty_json(g.dbo.insert_post(recd_data.get('post_title', None), recd_data.get('post_text', None), recd_data.get('post_tags', None)))
+	return pretty_json(g.dbo.insert_post(recd_data.get('post_title', None),  recd_data.get('post_text', None), recd_data.get('post_tags', None)))
 
 @app.route('/api/edit_post', methods=['POST'])
 def api_edit_post():
@@ -74,4 +84,4 @@ def pretty_json(jstr):
 	return json.dumps(jstr)
 # run the app
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(debug=True, host="0.0.0.0")

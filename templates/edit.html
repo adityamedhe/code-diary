@@ -1,0 +1,179 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>CodeDiary</title>
+
+		<!-- Libraries -->
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/materialize.min.js"></script>
+		<link rel="stylesheet" href="../static/css/materialize.min.css">
+	    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		
+		<!-- JS Classes -->
+		<script src="../static/js/Transceiver.js"></script>
+
+		<!-- Page specific includes -->
+	    <link rel="stylesheet" href="../static/css/CodeDiary.css">
+	    <style>
+	    .card-text {
+	    	overflow: hidden;
+	    	}
+	    </style>
+	</head>
+
+	<div class="row blue white-text z-depth-1" id="top-strip">		
+		<a class="material-icons white-text" href='/'>keyboard_backspace</a>
+	</div>
+	<br>
+	<br>
+	<body class = "grey lighten-2">
+
+		<div class="container">
+			<div class="row">
+				<div class="card white grey-text">
+					<div class="card-content">
+						<div class="card-title">
+							<input type="text" placeholder="POST TITLE" id = "create-title" value="{{post.post_title}}">
+						</div>
+						<div class="card-text">
+							<textarea class="black-text" name="" id="create-text" cols="30" rows="10" placeholder="POST TEXT">{{post.post_text}}
+							</textarea>
+						</div>
+						<br><br>
+						<div class="blue-text card-tags">SELECT TAGS
+							<input type="text" class="black-text" id="input-tags" placeholder="Enter one or more tags">
+							<div id="label-sugg">SUGGESTIONS</div>
+							<div id="tag-sugg-container"></div>
+							<div id="label-selected" style="display:block;">SELECTED TAGS</div>
+							<div id="tag-selected-container" style="display:block;">	
+								{%for t in post.tags:%}
+									<div class="chip">{{t.tag_name}}
+										<i class="material-icons">close</i>
+									</div>
+								{%endfor%}
+							</div>
+						</div>
+					</div>
+
+					<div class="card-action">
+						<button class="btn blue white-text waves-effect waves-light" id="submit">
+							Save
+						</button>
+
+						<button id="cancel" onclick="location.href='/'" class="btn-flat waves-effect waves-dark white red-text">
+							<i class="material-icons">cancel</i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+
+	<script>
+
+	pt = new Transceiver("127.0.0.1:5000")
+	selTags = [
+	{%for t in post.tags: %}
+		"{{t.tag_name}}",
+	{%endfor%}]
+
+	$("#tag-selected-container div.chip").on('click', function(){
+		selTags.splice(selTags.indexOf($(this).text()), 1)							
+		$(this).remove()
+		if(selCont.find('div').length == 0){
+			selCont.fadeOut('slow', function() {
+				selCont.hide()
+			})
+			labelSelected.fadeOut('slow', function(){
+				selCont.hide()
+			})
+		}
+	})
+	textField = $("#input-tags")
+	labelSugg = $("#label-sugg")
+	labelSelected = $("#label-selected")
+	suggCont = $("#tag-sugg-container")
+	selCont = $("#tag-selected-container")
+
+	textField.on('keyup', function (key) {
+		if(key.keyCode == 13) {
+			selTags.push(textField.val())
+			selCont.fadeIn('slow')
+			labelSelected.fadeIn('slow')
+			new_tag = $("<div></div>")
+			new_tag.html(textField.val())
+			new_tag.addClass('chip')
+			new_tag.on('click', function () {
+				selTags.splice(selTags.indexOf($(this).text()), 1)
+				$(this).remove()
+
+				if(selCont.find('div').length == 0){
+					selCont.fadeOut('slow', function() {
+						selCont.hide()
+					})
+					labelSelected.fadeOut('slow', function(){
+						selCont.hide()
+					})
+				}
+			})
+			selCont.append(new_tag)
+		}
+		searchPattern = textField.val()
+
+		pt.getTagSuggs(searchPattern, function (response){
+			if(response.status == "OK") {
+				labelSugg.fadeIn('slow')
+				suggCont.fadeIn('slow')
+				suggCont.html('')
+
+				for(t of response.tags){
+					tag = $("<div></div>")
+					tag.addClass('chip')
+					tag.html(t.tag_name)
+
+					tag.on('click', function(){
+						selCont.fadeIn('slow')
+						labelSelected.fadeIn('slow')
+						$(this).remove()
+						selCont.append($(this))
+						selTags.push($(this).text())
+						$(this).on('click', function(){
+							selTags.splice(selTags.indexOf($(this).text()), 1)							
+							$(this).remove()
+							if(selCont.find('div').length == 0){
+								selCont.fadeOut('slow', function() {
+									selCont.hide()
+								})
+								labelSelected.fadeOut('slow', function(){
+									selCont.hide()
+								})
+							}
+						})
+					})
+					suggCont.append(tag)
+				}
+			}
+			else if (response.status == "NO_RESULT") {
+				suggCont.fadeIn('slow')
+				suggCont.html('Could not find any suggestions. Press enter to add this tag.')
+			}
+		})
+	})
+
+
+	$("#submit").on('click', function() {
+		pt.editPost({{post.post_id}}, $("#create-title").val(), $("#create-text").val(), selTags, function(response) {
+			if(response.status == "OK") {
+				Materialize.toast("Post edited", 1000)
+				location.href = '/'
+			}
+			else {
+				Materialize.toast("There was an error: " + response.status, 2000)
+			}
+		})
+	})
+	</script>
+</html>

@@ -1,0 +1,118 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>CodeDiary</title>
+
+		<!-- Libraries -->
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/materialize.min.js"></script>
+		<link rel="stylesheet" href="../static/css/materialize.min.css">
+	    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		
+		<!-- JS Classes -->
+		<script src="../static/js/Transceiver.js"></script>
+		<script src="../static/js/DOM_Handler.js"></script>
+		<script src="../static/js/PostLoader.js"></script>
+
+		<!-- Page specific includes -->
+	    <link rel="stylesheet" href="../static/css/CodeDiary.css">
+	    <script src="../static/js/index.js"></script>
+	</head>
+
+	<style>
+	   .card-text {
+	    	overflow: hidden;
+	    	text-overflow:ellipsis;
+	    	}
+	   </style>
+	
+	<div id="button-about">
+		<a href = '/about' class="material-icons blue-text">info_outline</a>
+	</div>
+	<body class = "grey lighten-2">
+		<div id="progress-bar" class="progress grey lighten-2">
+			<div class="indeterminate blue"></div>
+		</div>
+		<div class="container">	
+			<div id="logo-container" class="row">
+				<img src="../static/images/CodeDiary.png" width="300" alt="">
+			</div>
+
+			<div class="row">
+
+				<ul id="tab-strip" class="tabs card">
+					<li class="tab col l6"><a id="tabAll" href="#" class="blue-text waves-effect waves-dark">Show all</a></li>
+					<li class="tab col l6"><a id="tabTitle" href="#sByName" class="blue-text waves-effect waves-dark">By Name</a></li>
+					<li class="tab col l6"><a id="tabTags" href="#sByTags" class="blue-text waves-effect waves-dark">By Tags</a></li>
+				</ul>
+
+
+				<div id = "sByName" class="card white grey-text">
+					<div class="card-content">					
+						<input id = "input-title" class="black-text" type="text" placeholder="Note title">			
+					</div>
+
+					<div class="card-action">
+						<button id="but-search-title" class="btn blue white-text waves-effect waves-light">
+							<i class="material-icons">search</i>
+						</button>
+
+						<button class="btn-flat white blue-text waves-effect waves-blue">
+							Reset
+						</button>
+					</div>
+				</div>
+				
+				<div id="sByTags" class="card white grey-text">
+					<div class="card-content">
+						<input id = "input-tags" class="black-text" type="text" placeholder="One or more tags">
+
+						<div id="label-sugg" class="blue-text">
+							SUGGESTIONS
+						</div>
+						<div id="tag-sugg-container">
+						</div>
+
+						<div id="label-selected" class="blue-text">
+							SELECTED TAGS
+						</div>
+						<div id="tag-selected-container">
+						</div>
+					</div>
+					<div class="card-action">
+						<button id="but-search-tags" class="btn blue white-text waves-effect waves-light">
+							<i class="material-icons">search</i>
+						</button>
+
+						<button class="btn-flat white blue-text waves-effect waves-blue">
+							Reset
+						</button>
+					</div>
+
+				</div>
+
+				<div id="card-status" class="card-panel white grey-text">
+				</div>	
+
+
+
+
+
+				<div id="post-container">
+					
+					
+
+				</div>
+				<button id='button-load' class="btn blue white-text waves-effect waves-light">
+					load more posts
+				</button>
+			</div>
+
+		</div>
+	</body>
+
+	<a id = "button-create" class="btn-floating btn-large waves-effect waves-light blue z-depth-2">
+		<i class="material-icons">add</i>
+	</a>
+</html>

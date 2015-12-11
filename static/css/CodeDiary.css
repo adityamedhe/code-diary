@@ -1,0 +1,115 @@
+/* common styles */
+body {
+	font-family: 'Fira Sans';
+}
+
+/* 
+Overrides for default materialize styles
+ */
+.tabs .indicator {
+	background-color:#2196f3;
+}
+
+input[type=text]:focus:not([readonly]) {
+	
+	border-color: #dedede;
+	box-shadow: 0 1px 0 0 #dedede;
+}
+
+.chip {
+	margin: 5px;
+	cursor: default;
+}
+/* 
+index page
+ */
+ #button-about {
+ 	position: absolute;
+ 	top:10px;
+ 	left: 10px;
+ 	cursor: default;
+ }
+#logo-container {
+	text-align: center;
+	padding: 15px;
+}
+
+#progress-bar {
+	position: fixed;
+	margin-top: -25px;
+	z-index: 1110;
+}
+
+#logo-container {
+	margin-top: 25px;
+}
+
+#tag-sugg-container {
+	margin-bottom: 20px;
+}
+
+#tag-selected-container {
+	/*margin-bottom: 20px;*/
+}
+
+#card-status {
+	text-align: center;
+}
+
+#button-load {
+	width: 100%;
+	margin: auto;
+}
+
+#label-sugg, #label-selected, #tag-selected-container, #tag-sugg-container {
+	display: none;
+}
+
+#button-create {
+	position: fixed;
+	bottom: 15px;
+	right: 15px;
+}
+
+
+/* 
+view page
+ */
+
+ #top-strip {
+ 	z-index: 1001;
+ 	width: 100%;
+ 	margin-top: 0px;
+ 	position: fixed;
+ 	padding: 10px;
+ }
+
+code {
+	display: block;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	white-space: pre-wrap;
+	font-family: monospace;
+	width: 100%;
+	padding: 15px;
+	border-left: 3px #2196f3 solid;
+	background-color: #ededed;
+}
+
+.card-text {
+	overflow: scroll;
+}
+
+/* create page */
+
+#create-text{
+	height: 250px;
+	outline: none;
+	border-radius: 3px;
+	border:1px #dedede solid;
+	border-bottom: 1px grey solid;
+}
+
+
+
+

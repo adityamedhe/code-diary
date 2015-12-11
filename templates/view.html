@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>CodeDiary</title>
+
+		<!-- Libraries -->
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/materialize.min.js"></script>
+		<link rel="stylesheet" href="../static/css/materialize.min.css">
+	    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		
+		<!-- JS Classes -->
+		<script src="../static/js/Transceiver.js"></script>
+
+		<!-- Page specific includes -->
+	    <link rel="stylesheet" href="../static/css/CodeDiary.css">
+	</head>
+
+	<style>
+	   .card-text {
+	    	overflow: inherit;
+	    	}
+	    	</style>
+	
+	<div class="row blue white-text z-depth-1" id="top-strip">
+		<a class="material-icons white-text" href='/'>keyboard_backspace</a>
+	</div>
+	<br><Br>
+	<body class = "grey lighten-2">
+		<div class="container">
+			<div class="row">
+				<div class="card white">
+					<div class="card-content">
+						<div class="card-title grey-text">
+							<h5></h5>
+						</div>
+
+						<div class="card-text">
+						
+						</div>
+						<br>
+						<div class="card-tags blue-text">
+							<img src="../static/images/tag.png"  width="30" alt=""> 
+							
+						</div>
+					</div>
+
+					<div class="card-action">
+						<button onclick="location.href='/edit/{{post.post_id}}'" class="btn-flat white blue-text waves-effect waves-dark">
+							<i class="material-icons">edit</i>
+						</button>
+
+						<button id = "button-delete" class="btn-flat white red-text waves-effect waves-dark">
+							<i class="material-icons">delete</i>
+						</button>
+					</div>
+				</div>			
+			</div>
+		</div>
+
+	<script>
+		pt = new Transceiver("127.0.0.1:5000")
+		$(document).ready(function() {
+			$("#button-delete").on('click', function () {
+				pt.deletePost({{post.post_id}}, function() {
+					location.href = '/'
+				})
+			})
+		})
+		
+		pt.getPostByID({{post.post_id}}, function(response){
+			$(".card-title").html(response.post.post_title)
+			$(".card-text").html(response.post.post_text)
+
+			for (t of response.post.tags) {
+				$(".card-tags").append("<div class=chip>"+t.tag_name+"</div>")
+			}
+		})
+		
+	</script>	
+	</body>

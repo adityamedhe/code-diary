@@ -28,7 +28,7 @@ Transceiver.prototype.insertPost = function(post_title, post_text, post_tags, ca
 
 	$.post(this.endpoints['insert_post'], JSON.stringify(payload), function(response) {
 		callback (response);
-	})
+	}, "json")
 }
 
 Transceiver.prototype.getTagSuggs = function(key, callback) {
