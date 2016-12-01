@@ -8,14 +8,14 @@ function Transceiver(set_URL){
 	this.serverURL = set_URL.trim()
 
 	this.endpoints = []
-	this.endpoints['insert_post'] = 'http://' + this.serverURL + '/api/insert_post'
-	this.endpoints['edit_post'] = 'http://' + this.serverURL + '/api/edit_post'
-	this.endpoints['get_posts'] = 'http://' + this.serverURL + '/api/get_posts'
-	this.endpoints['get_posts_by_tags'] = 'http://' + this.serverURL + '/api/get_posts_by_tags'
-	this.endpoints['get_post_by_id'] = 'http://' + this.serverURL + '/api/get_post_by_id'
-	this.endpoints['get_tag_suggs'] = 'http://' + this.serverURL + '/api/get_tag_suggs'
-	this.endpoints['delete_post'] = 'http://' + this.serverURL + '/api/delete_post'
-	this.endpoints['get_posts_by_title'] = 'http://' + this.serverURL + '/api/get_posts_by_title'
+	this.endpoints['insert_post'] = this.serverURL + '/api/insert_post'
+	this.endpoints['edit_post'] = this.serverURL + '/api/edit_post'
+	this.endpoints['get_posts'] = this.serverURL + '/api/get_posts'
+	this.endpoints['get_posts_by_tags'] = this.serverURL + '/api/get_posts_by_tags'
+	this.endpoints['get_post_by_id'] = this.serverURL + '/api/get_post_by_id'
+	this.endpoints['get_tag_suggs'] = this.serverURL + '/api/get_tag_suggs'
+	this.endpoints['delete_post'] = this.serverURL + '/api/delete_post'
+	this.endpoints['get_posts_by_title'] = this.serverURL + '/api/get_posts_by_title'
 }
 
 //function definitions

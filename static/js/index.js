@@ -13,7 +13,7 @@ $(document).ready(function() {
 		"card-status" : $("#card-status"),
 		"post-container" : $("#post-container")
 	}
-	pt = new Transceiver("127.0.0.1:5000")
+	pt = new Transceiver("/")
 	dh = new DOMHandler(UIBundle)
 	loader = new PostLoader(pt, dh, UIBundle)
 
