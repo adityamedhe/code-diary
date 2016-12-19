@@ -60,7 +60,7 @@
 		</div>
 
 	<script>
-		pt = new Transceiver("127.0.0.1:5000")
+		pt = new Transceiver("/")
 		$(document).ready(function() {
 			$("#button-delete").on('click', function () {
 				pt.deletePost({{post.post_id}}, function() {
